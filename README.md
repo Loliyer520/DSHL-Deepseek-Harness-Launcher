@@ -53,39 +53,6 @@
 - WSL2（程序可引导一键安装）
 - 发行版内 Node.js `^22.19.0` 或 `>=24.0.0`
 
-**构建：**
-
-- Visual Studio 2022（含 .NET 桌面开发工作负载，用于编译 WPF 主工程）
-- .NET SDK（用于编译 C# 依赖：`PCLCS`、`MeloongCore`）
-- Python 3（用于生成 build-only 工程文件）
-
----
-
-## 构建
-
-主工程为 VB.NET / WPF（.NET Framework 4.8），另有三个 C# 依赖项目。一条命令即可完成：
-
-```bat
-build-harness.bat
-```
-
-等价于以下步骤：
-
-```bat
-:: 1/3 用 dotnet SDK 编译 C# 依赖
-dotnet build PCLCS\PCLCS.csproj -c Debug --nologo -v q
-dotnet build MeloongCore\Shared\MeloongCore.csproj -c Debug --nologo -v q
-dotnet build MeloongCore\Wpf\MeloongCore.Wpf.csproj -c Debug --nologo -v q
-
-:: 2/3 生成 build-only vbproj（把 ProjectReference 换成 DLL 直接引用）
-python gen-buildonly-vbproj.py
-
-:: 3/3 用 VS MSBuild 编译 WPF 主工程
-"C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Current\Bin\MSBuild.exe" "Harness.BuildOnly.vbproj" /t:Build /p:Configuration=Debug
-```
-
-> 脚本内的绝对路径（`build-harness.bat`、`gen-buildonly-vbproj.py`）是作者本机路径，其他机器构建前需改为实际路径。
-
 ---
 
 ## 使用说明
@@ -114,34 +81,6 @@ python gen-buildonly-vbproj.py
 ### 联网主页投稿
 
 如需制作联网更新的主页（服主可用于动态更新服务器公告），可在设置的主页自定义里点击提示投稿，若合格即可加入预设。制作联网主页时，可通过版本号检查节省流量，也可通过检查 Referer 和 User Agent 判断对方的 PCL 版本。
-
----
-
-## 发布新版本
-
-启动器自更新的发布流程见 [UPDATING.md](UPDATING.md)：同步版本号 → Release 编译 → 生成 `DSHL-update.zip` → 发布 GitHub Release（附 `sha256:` 校验值）。
-
----
-
-## 目录结构
-
-```
-PCLCS/                  C# 依赖：启动/Java/资源解析等
-MeloongCore/            C# 依赖：Shared / Wpf 核心库
-Modules/                核心逻辑（VB.NET）
-  ├─ Base/              基础模块（日志、加载器等）
-  ├─ Minecraft/         PCL 原有 Minecraft 模块
-  └─ DeepSeek/          DSHL 专属模块
-       ├─ ModHarness.vb       dsh 进程启动/监视
-       ├─ ModWsl.vb           WSL 环境检测与安装
-       ├─ ModAssistant.vb     内置助手（Agent 对话）
-       ├─ ModPluginCommunity.vb  插件社区/管理
-       ├─ ModDspack.vb        .dspack 整合包
-       └─ ModLauncherUpdate.vb    启动器自更新
-Pages/                  页面（启动/下载/实例/助手/设置等）
-Controls/               自定义控件
-FormMain.xaml(.vb)      主窗口
-```
 
 ---
 
