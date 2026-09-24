@@ -1,0 +1,53 @@
+name: 🐛 Bug 报告
+description: 报告 DSHL 运行中遇到的问题
+title: "[Bug] "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        感谢反馈！填写前请先搜索已有 Issue，避免重复。
+  - type: input
+    id: version
+    attributes:
+      label: DSHL 版本
+      description: 启动器标题栏或「设置 → 关于」里可以看到
+      placeholder: 例如 v1.2.0
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: 运行环境
+      description: Windows 版本 / WSL 发行版 / dsh 版本
+      placeholder: 例如 Win11 23H2 / Ubuntu 24.04 / dsh 1.5.0
+    validations:
+      required: true
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: 问题描述
+      description: 发生了什么？你期望的行为是什么？
+    validations:
+      required: true
+  - type: textarea
+    id: repro
+    attributes:
+      label: 复现步骤
+      description: 如何稳定复现这个问题？
+      placeholder: |
+        1. 打开……
+        2. 点击……
+        3. 出现错误……
+  - type: textarea
+    id: logs
+    attributes:
+      label: 相关日志 / 截图
+      description: 报错弹窗、日志面板内容或截图（可直接拖拽图片到输入框）
+      render: text
+  - type: checkboxes
+    id: agent-analysis
+    attributes:
+      label: 附加信息
+      options:
+        - label: 我已尝试用启动器内置助手「卡西」的「用 Agent 分析」功能诊断

@@ -1,0 +1,27 @@
+# 编译产物
+[Bb]in/
+[Oo]bj/
+obj-buildonly/
+
+# 构建 / 测试输出与产物（output 下的脚本会保留）
+output/update-test-*/
+output/release-*/
+output/logo-edit/
+output/*.log
+output/*.png
+output/*.pid
+
+# 用户与运行时数据
+PCL/
+.minecraft/
+*.user
+*.suo
+*.pdb
+
+# 构建自动生成的临时工程文件（由 gen-buildonly-vbproj.py 生成）
+Harness.BuildOnly.vbproj
+
+# Isolated installation regression build and fixtures
+obj-robustness/
+output/install-test-*/
+output/dsh-base-*.tgz

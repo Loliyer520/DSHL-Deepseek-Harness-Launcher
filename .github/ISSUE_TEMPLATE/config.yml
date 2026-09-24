@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: 🎒 整合包市场
+    url: https://dsh-packforge.github.io/dsh-pack-market/
+    about: 浏览和下载 .dspack 整合包（市场相关问题请去对应仓库反馈）
+  - name: 📖 DeepSeek Harness 官方
+    url: https://github.com/deepseek-ai/deepseek-harness
+    about: dsh 本体的问题请反馈到上游官方仓库
